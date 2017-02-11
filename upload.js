@@ -46,7 +46,6 @@ function calcTf(e) {
 		contentType: "text/plain",
 		success: function (result) {
 			$("#result").val(result)
-			console.log(result)
 		},
 	});
 
