@@ -62,6 +62,13 @@ class HTTPProcessor(BaseHTTPRequestHandler):
 			print "calc"
 			content_len = int(self.headers.getheader('content-length', 0))
 			post_body = self.rfile.read(content_len)
+			if post_body == "":
+				result = "No picture provided"
+				self.send_response(200)
+				self.send_header(Content-Length, str(len(result)))
+				self.end_headers()
+				self.wfile.write(result)
+				return
 			result = label_image.calc_score(post_body)
 			print "result : ", result
 			if result != "":
@@ -69,10 +76,12 @@ class HTTPProcessor(BaseHTTPRequestHandler):
 				self.send_header("Content-Length", str(len(result)))
 				self.end_headers()
 				self.wfile.write(result)
+				return
 			else:
 				self.send_response(404)
 				self.end_headers()
-				self.wfile.write("FUCK UOT")
+				self.wfile.write("Error dammit!")
+				return
 
 def run():
 	try:
