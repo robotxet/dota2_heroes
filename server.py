@@ -77,7 +77,7 @@ class HTTPProcessor(BaseHTTPRequestHandler):
 def run():
 	try:
 		print "Server starting..."
-		server_address = ('127.0.0.1', 80)
+		server_address = ('0.0.0.0', 80)
 		httpd = HTTPServer(server_address, HTTPProcessor)
 		print "Http server is running..."
 		httpd.serve_forever()
